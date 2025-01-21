@@ -6,13 +6,13 @@
 #    By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 07:36:19 by eaqrabaw          #+#    #+#              #
-#    Updated: 2025/01/21 09:18:17 by eaqrabaw         ###   ########.fr        #
+#    Updated: 2025/01/21 09:33:39 by eaqrabaw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
-CC = CC
-CFLAGS = -Wall -Werror Wextra
+CC = cc
+CFLAGS = -Wall -Werror -Wextra
 SRCS = main
 SRC_DIR = src/
 OBJ_DIR = obj/
@@ -20,21 +20,21 @@ HEADER = includes/philosophers.h
 FULL_SRC = $(addprefix $(SRC_DIR),$(addsuffix .c, $(SRCS)))
 OBJS = $(addprefix $(OBJ_DIR),$(addsuffix .o, $(SRCS)))
 
-all : $(NAME)
+all: $(NAME)
 
-$(NAME) : $(OBJS)
-	$(CC) $(Flags) -o $(Name) $(OBJ)
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADER) | $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) -c $(CFLAGS) -o $@ $<
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-clean :
+clean:
 	@rm -rf $(OBJ_DIR)
 
-fclean : clean
+fclean: clean
 	@rm -f $(NAME)
 
-re : fclean all 
+re: fclean all 
 
-.PHONY : all clean fclean re
+.PHONY: all clean fclean re
