@@ -6,7 +6,7 @@
 #    By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 07:36:19 by eaqrabaw          #+#    #+#              #
-#    Updated: 2025/01/21 08:02:07 by eaqrabaw         ###   ########.fr        #
+#    Updated: 2025/01/21 08:11:51 by eaqrabaw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,12 @@ HEADER = includes/philosophers.h
 FULL_SRC = $(addprefix $(SRC_DIR),$(addsuffix .c, $(SRCS)))
 OBJS = $(addprefix $(OBJ_DIR),$(addsuffix .o, $(SRCS)))
 
-$(NAME) : all
+all : $(NAME)
 
-all : $(OBJS)
+$(NAME) : $(OBJS)
+	$(CC) $(Flags) -o $(Name) $(OBJ)
 
-$(OBJ_DIR)%.o : %.c $(HEADER) | $(OBJ_DIR)
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADER) | $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) -c $(CFLAGS) -o $@ $<
 
@@ -32,7 +33,7 @@ clean :
 	@rm -rf $(OBJ_DIR)
 
 fclean : clean
-	@rm -rf $(NAME)
+	@rm -f $(NAME)
 
 re : fclean all 
 
