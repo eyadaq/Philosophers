@@ -6,11 +6,11 @@
 #    By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 07:36:19 by eaqrabaw          #+#    #+#              #
-#    Updated: 2025/01/21 08:11:51 by eaqrabaw         ###   ########.fr        #
+#    Updated: 2025/01/21 09:18:17 by eaqrabaw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = Philosophers
+NAME = philo
 CC = CC
 CFLAGS = -Wall -Werror Wextra
 SRCS = main
