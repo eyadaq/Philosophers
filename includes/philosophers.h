@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 08:01:24 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/01/27 07:20:12 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/01/27 07:45:05 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int     	ft_isdigit(char c);
 int    		ft_isnumber(char *str);
 int     	ft_check_arguments(int argc, char *argv[]);
 void    	ft_initialize(t_philo *p, int argc, char *argv[]);
-
-
+void        ft_eat(t_philo *ph);
+void        ft_think(t_philo *ph);
+void        ft_sleep(t_philo *ph);
 #endif

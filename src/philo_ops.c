@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   philo_ops.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/21 08:01:36 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/01/27 07:42:11 by eaqrabaw         ###   ########.fr       */
+/*   Created: 2025/01/27 07:43:17 by eaqrabaw          #+#    #+#             */
+/*   Updated: 2025/01/27 07:44:54 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/philosophers.h"
-int main(int argc, char *argv[])
+#include "../includes/philosophers.h"
+
+void        ft_eat(t_philo *ph)
 {
-    t_philo philos;
-    
-    if (!ft_check_arguments(argc, argv))
-        return (1);
-    ft_initialize(&philos, argc, argv);
-    return (0);
+       
+}
+
+void        ft_think(t_philo *ph)
+{
+       
+}
+
+void        ft_sleep(t_philo *ph)
+{
+       
 }
