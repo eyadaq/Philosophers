@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 08:01:24 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/01/27 06:39:58 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/01/27 07:20:12 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,19 @@
 
 typedef struct s_philo
 {
-	int		t_
+	int		n_philosophers;
+	int		t_die;
+	int		t_eat;
+	int		t_sleep;
+	int		n_eat;
+	
 }			t_philo;
+
+int     	ft_atoi(char *str);
+int     	ft_isdigit(char c);
+int    		ft_isnumber(char *str);
+int     	ft_check_arguments(int argc, char *argv[]);
+void    	ft_initialize(t_philo *p, int argc, char *argv[]);
+
+
 #endif

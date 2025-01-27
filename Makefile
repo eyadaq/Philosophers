@@ -6,14 +6,14 @@
 #    By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 07:36:19 by eaqrabaw          #+#    #+#              #
-#    Updated: 2025/01/27 06:20:35 by eaqrabaw         ###   ########.fr        #
+#    Updated: 2025/01/27 07:15:58 by eaqrabaw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g
-SRCS = main
+SRCS = main utils 
 SRC_DIR = src/
 OBJ_DIR = obj/
 HEADER = includes/philosophers.h
