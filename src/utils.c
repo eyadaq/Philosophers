@@ -6,13 +6,13 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 06:48:43 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/01/27 07:24:11 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/01/27 08:24:15 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-int     ft_isdigit(char c)
+static int     ft_isdigit(char c)
 {
     if (c >= '0' && c <= '9')
         return (1);
@@ -20,7 +20,7 @@ int     ft_isdigit(char c)
         return (0);
 }
 
-int    ft_isnumber(char *str)
+static int    ft_isnumber(char *str)
 {
     while (*str == ' ')
         str++;
@@ -31,7 +31,7 @@ int    ft_isnumber(char *str)
     return (*str == '\0');
 }
 
-int     ft_atoi(char *str)
+static int     ft_atoi(char *str)
 {
     int     number;
     
@@ -50,7 +50,30 @@ int     ft_atoi(char *str)
     return (number);
 }
 
-int     ft_check_arguments(int argc, char *argv[])
+static int    ft_initialize(t_data *p, char *argv[])
+{
+    p->n_philosophers = ft_atoi(argv[1]);
+    p->t_die = ft_atoi(argv[2]);
+    p->t_eat = ft_atoi(argv[3]);
+    p->t_sleep = ft_atoi(argv[4]);
+    p->n_eat = ft_atoi(argv[5]);
+    p->forks = malloc(sizeof(t_fork) * p->n_philosophers);
+    if (!p->forks)
+    {
+        write(2, "Malloc Failed\n", 15);  
+        return (0);
+    }
+    p->philosophers = malloc(sizeof(t_philosopher) * p->n_philosophers);
+    if (!p->philosophers)
+    {
+        write(2, "Malloc Failed\n", 15);
+        free(p->forks);
+        return (0);   
+    }
+    return (1);   
+}
+
+int     ft_check_initialize(int argc, char *argv[], t_data *data)
 {
     int     x;
 
@@ -69,15 +92,7 @@ int     ft_check_arguments(int argc, char *argv[])
         }
         x++;
     }
-    write (2, "Arguments are valid\n", 20);
+    if (!ft_initialize(data, argv))
+        return (0);
     return (1);
-}
-
-void    ft_initialize(t_philo *p, int argc, char *argv[])
-{
-    p->n_philosophers = ft_atoi(argv[1]);
-    p->t_die = ft_atoi(argv[2]);
-    p->t_eat = ft_atoi(argv[3]);
-    p->t_sleep = ft_atoi(argv[4]);
-    p->n_eat = ft_atoi(argv[5]);
 }
