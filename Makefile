@@ -6,13 +6,13 @@
 #    By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 07:36:19 by eaqrabaw          #+#    #+#              #
-#    Updated: 2025/01/21 09:34:02 by eaqrabaw         ###   ########.fr        #
+#    Updated: 2025/01/27 06:20:35 by eaqrabaw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 SRCS = main
 SRC_DIR = src/
 OBJ_DIR = obj/
@@ -26,8 +26,10 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADER) | $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	@rm -rf $(OBJ_DIR)
@@ -35,6 +37,6 @@ clean:
 fclean: clean
 	@rm -f $(NAME)
 
-re: fclean all 
+re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean ree
