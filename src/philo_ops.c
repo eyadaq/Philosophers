@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 07:43:17 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/01/27 08:04:35 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/01/27 10:28:38 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 
 void        ft_eat(t_data *ph)
 {
-       
-}
-
-void        ft_think(t_data *ph)
-{
-       
+    usleep(ph->t_eat);
 }
 
 void        ft_sleep(t_data *ph)
 {
-       
+    usleep(ph->t_sleep);    
+}
+
+void        ft_think(t_data *ph)
+{
 }

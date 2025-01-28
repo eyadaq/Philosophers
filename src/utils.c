@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 06:48:43 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/01/27 08:24:15 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/01/27 09:23:34 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,25 @@ static int     ft_atoi(char *str)
     return (number);
 }
 
-static int    ft_initialize(t_data *p, char *argv[])
+static int    ft_initialize(t_data *p, char *argv[], int argc)
 {
     p->n_philosophers = ft_atoi(argv[1]);
     p->t_die = ft_atoi(argv[2]);
     p->t_eat = ft_atoi(argv[3]);
     p->t_sleep = ft_atoi(argv[4]);
-    p->n_eat = ft_atoi(argv[5]);
-    p->forks = malloc(sizeof(t_fork) * p->n_philosophers);
+    p->n_eat = FT_INT_MAX;
+    if (argc == 6)
+        p->n_eat = ft_atoi(argv[5]);
+    p->forks = malloc(sizeof(pthread_mutex_t) * p->n_philosophers);
     if (!p->forks)
     {
-        write(2, "Malloc Failed\n", 15);  
+        write(2, "Malloc Failed\n", 14);  
         return (0);
     }
     p->philosophers = malloc(sizeof(t_philosopher) * p->n_philosophers);
     if (!p->philosophers)
     {
-        write(2, "Malloc Failed\n", 15);
+        write(2, "Malloc Failed\n", 14);
         free(p->forks);
         return (0);   
     }
@@ -78,7 +80,7 @@ int     ft_check_initialize(int argc, char *argv[], t_data *data)
     int     x;
 
     x = 1;
-    if (argc != 6)
+    if (argc > 4 && argc < 7)
     {
         write (2, "Invalid Arguments\n", 19);
         return (1);
@@ -92,7 +94,7 @@ int     ft_check_initialize(int argc, char *argv[], t_data *data)
         }
         x++;
     }
-    if (!ft_initialize(data, argv))
+    if (!ft_initialize(data, argv, argc))
         return (0);
     return (1);
 }
