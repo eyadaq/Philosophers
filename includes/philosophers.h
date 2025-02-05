@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 08:01:24 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/02/05 10:27:05 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/02/05 10:51:22 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@
 typedef struct  s_philosoher
 {
 	int		id;
+	pthread_t    thread;
+	int			left_fork;
+	int			right_fork;
+	long		last_meal_time;
+	int			meals_eaten;
+	struct s_data		*data;
 }		t_philosopher;
 
 typedef struct  s_data
@@ -33,8 +39,14 @@ typedef struct  s_data
 	int			time_to_eat;
 	int			time_to_sleep;
 	t_philosopher	*philosophers;
+	int			simulation_over;
+	long 		start_time;
+	pthread_mutex_t *forks;
+	pthread_mutex_t write_lock;
 }			t_data;
 
 int     ft_check_initialize(int argc, char *argv[], t_data *data);
+void    ft_free(t_data *data);
+
 
 #endif

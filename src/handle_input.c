@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 06:48:43 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/02/05 10:37:53 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/02/05 11:04:33 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,12 @@ static int  ft_initialize(int argc, char *argv[], t_data *data)
     data->philosophers = malloc(data->num_philo * sizeof(t_philosopher));
     if (!data->philosophers)
         return (0);
-    ft_print(data);
+    data->forks = malloc(data->num_philo * sizeof(pthread_mutex_t));
+    if (!data->forks)
+    {
+        ft_free(data);
+        return (0);
+    }
     return (1);
 }
 
@@ -74,7 +79,7 @@ int     ft_check_initialize(int argc, char *argv[], t_data *data)
     x = 1;
     if (!(argc == 5 || argc == 6))
     {
-        write (2, "Invalid Arguments1\n", 19);
+        write (2, "Invalid Arguments\n", 19);
         return (1);
     }
     while (x < argc)
@@ -87,6 +92,9 @@ int     ft_check_initialize(int argc, char *argv[], t_data *data)
         x++;
     }
     if(!ft_initialize(argc, argv, data))
+    {
+        write (2, "Invalid Arguments\n", 19);
         return (0);
+    }
     return (1);
 }
