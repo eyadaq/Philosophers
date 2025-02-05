@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 06:48:43 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/01/27 09:23:34 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/02/02 09:00:33 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int     ft_check_initialize(int argc, char *argv[], t_data *data)
     int     x;
 
     x = 1;
-    if (argc > 4 && argc < 7)
+    if ((argc > 4 && argc < 7) || argc < 5)
     {
         write (2, "Invalid Arguments\n", 19);
         return (1);

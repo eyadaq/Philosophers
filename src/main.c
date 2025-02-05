@@ -6,11 +6,12 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 08:01:36 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/01/27 09:04:23 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/02/02 09:21:42 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/philosophers.h"
+
 void *philosopher_routine(void *arg)
 {
     t_philosopher *philo = (t_philosopher *)arg;
