@@ -12,62 +12,62 @@
 
 #include "../includes/philosophers.h"
 
-static int     ft_isdigit(char c)
+static int	ft_isdigit(char c)
 {
-    if (c >= '0' && c <= '9')
-        return (1);
-    else
-        return (0);
+	if (c >= '0' && c <= '9')
+		return (1);
+	else
+		return (0);
 }
 
-static int    ft_isnumber(char *str)
+static int	ft_isnumber(char *str)
 {
-    while (*str == ' ')
-        str++;
-    if (*str == '+' || *str == '-')
-        str++;
-    while (ft_isdigit(*str))
-        str++;
-    return (*str == '\0');
+	while (*str == ' ')
+		str++;
+	if (*str == '+' || *str == '-')
+		str++;
+	while (ft_isdigit(*str))
+		str++;
+	return (*str == '\0');
 }
 
-int     ft_atoi(char *str)
+int	ft_atoi(char *str)
 {
-    int     number;
-    
-    number = 0;
-    while (*str <= ' ' && *str)
-        str++;
-    if (*str == '+')
-        str++;
-    else if (*str == '-')
-        return (0);
-    while (ft_isdigit(*str))
-    {
-        number = (number * 10) + (*str - '0');
-        str++;
-    }
-    return (number);
+	int	number;
+
+	number = 0;
+	while (*str <= ' ' && *str)
+		str++;
+	if (*str == '+')
+		str++;
+	else if (*str == '-')
+		return (0);
+	while (ft_isdigit(*str))
+	{
+		number = (number * 10) + (*str - '0');
+		str++;
+	}
+	return (number);
 }
 
-int     ft_check_input(int argc, char *argv[])
+int	ft_check_input(int argc, char *argv[])
 {
-    int     x;
+	int	x;
 
-    x = 1;
-    if (!(argc == 5 || argc == 6))
-    {
-        write (2, "Invalid Arguments\n", 19);
-        return (0);
-    }
-    while (x < argc)
-    {
-        if (!ft_isnumber(argv[x]))
-        {
-            write (2, "Invalid Arguments\n", 19);
-            return (0);
-        }
-        x++;
-    }
-    return (1);
+	x = 1;
+	if (!(argc == 5 || argc == 6))
+	{
+		write(2, "Invalid Arguments\n", 19);
+		return (0);
+	}
+	while (x < argc)
+	{
+		if (!ft_isnumber(argv[x]))
+		{
+			write(2, "Invalid Arguments\n", 19);
+			return (0);
+		}
+		x++;
+	}
+	return (1);
 }

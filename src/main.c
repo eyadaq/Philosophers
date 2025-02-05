@@ -12,15 +12,15 @@
 
 #include "../includes/philosophers.h"
 
-int     main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
-    t_data  data;
-    
-    if (!ft_check_input(argc, argv))
-        return (1);
-    if (!ft_initialize(argc, argv, &data))
-        return (1);
-    
-    ft_free(&data);
-    return (0);
+	t_data data;
+
+	if (!ft_check_input(argc, argv))
+		return (1);
+	if (!ft_initialize(argc, argv, &data))
+		return (1);
+
+	ft_free(&data);
+	return (0);
 }
