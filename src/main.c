@@ -6,26 +6,21 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 08:01:36 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/02/05 11:04:18 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/02/05 11:58:16 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/philosophers.h"
-
-void    ft_free(t_data *data)
-{
-	if (data->forks)
-		free(data->forks);
-	if (data->philosophers)
-		free(data->philosophers);
-}
+#include "../includes/philosophers.h"
 
 int     main(int argc, char *argv[])
 {
     t_data  data;
     
-    if (!ft_check_initialize(argc, argv, &data))
+    if (!ft_check_input(argc, argv))
         return (1);
+    if (!ft_initialize(argc, argv, &data))
+        return (1);
+    
     ft_free(&data);
     return (0);
 }

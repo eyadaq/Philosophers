@@ -6,7 +6,7 @@
 #    By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 07:36:19 by eaqrabaw          #+#    #+#              #
-#    Updated: 2025/02/05 11:04:07 by eaqrabaw         ###   ########.fr        #
+#    Updated: 2025/02/05 12:01:55 by eaqrabaw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ NAME = philo
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 SRCS = 	main \
-		handle_input
+		handle_input\
+		initialization\
+		routine
 SRC_DIR = src/
 OBJ_DIR = obj/
 HEADER = includes/philosophers.h
@@ -24,12 +26,13 @@ RESET   	= \033[0m
 ARROW   	= ✔
 FULL_SRC = $(addprefix $(SRC_DIR),$(addsuffix .c, $(SRCS)))
 OBJS = $(addprefix $(OBJ_DIR),$(addsuffix .o, $(SRCS)))
+LDFLAGS = -lpthread
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "$(GREEN)Making $(NAME)...$(RESET)"
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
 	@echo "$(GREEN)Done $(ARROW)$(RESET)"
 	
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADER) | $(OBJ_DIR)
