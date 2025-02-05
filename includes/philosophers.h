@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 08:01:24 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/01/27 09:33:26 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/02/05 10:27:05 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,31 +20,21 @@
 #include <unistd.h>
 #include <sys/time.h>
 
-typedef struct s_philosopher
+typedef struct  s_philosoher
 {
-	int				id;
-	int				left_fork;
-	int				right_fork;
-	pthread_t		thread;
-	struct s_data	*data;
-}			t_philosopher;
+	int		id;
+}		t_philosopher;
 
-typedef struct s_data
+typedef struct  s_data
 {
-	int				n_philosophers;
-	int				t_die;
-	int				t_eat;
-	int				t_sleep;
-	int				n_eat;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	write_lock;
+	int         num_philo;
+	int			time_to_die;
+	int			num_must_eat;
+	int			time_to_eat;
+	int			time_to_sleep;
 	t_philosopher	*philosophers;
 }			t_data;
 
-int     	ft_check_initialize(int argc, char *argv[], t_data *data);
-void        ft_eat(t_data *ph);
-void        ft_think(t_data *ph);
-void        ft_sleep(t_data *ph);
-void 		*philosopher_routine(void *arg);
-void		ft_init_philosophers(t_data *data);
+int     ft_check_initialize(int argc, char *argv[], t_data *data);
+
 #endif

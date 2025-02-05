@@ -6,7 +6,7 @@
 #    By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 07:36:19 by eaqrabaw          #+#    #+#              #
-#    Updated: 2025/02/05 09:52:40 by eaqrabaw         ###   ########.fr        #
+#    Updated: 2025/02/05 10:32:40 by eaqrabaw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,7 @@ NAME = philo
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 SRCS = 	main \
-		utils \
-		philo_ops
+		handle_input
 SRC_DIR = src/
 OBJ_DIR = obj/
 HEADER = includes/philosophers.h
@@ -30,16 +29,16 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@echo "$(GREEN)Making $(NAME)...$(RESET)"
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 	@echo "$(GREEN)Done $(ARROW)$(RESET)"
 	
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADER) | $(OBJ_DIR)
-	@printf "\033[0;33mGenerating $(NAME) objects... %-33.33s\r" $@
-	$(CC) $(CFLAGS) -c $< -o $@
+	@echo "$(GREEN)Generating $@ $(RESET)"
+	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo "$(GREEN)Done $(ARROW)$(RESET)"
 
 $(OBJ_DIR):
-	@echo "$(GREEN)Creating $(OBJ_DIR)...$(RESET)"
+	@echo "$(GREEN)Creating OBJ_DIR$(RESET)"
 	@mkdir -p $(OBJ_DIR)
 	@echo "$(GREEN)Done $(ARROW)$(RESET)"
 clean:

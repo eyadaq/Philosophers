@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   handle_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 06:48:43 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/02/02 09:00:33 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/02/05 10:37:53 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,29 +50,21 @@ static int     ft_atoi(char *str)
     return (number);
 }
 
-static int    ft_initialize(t_data *p, char *argv[], int argc)
+static int  ft_initialize(int argc, char *argv[], t_data *data)
 {
-    p->n_philosophers = ft_atoi(argv[1]);
-    p->t_die = ft_atoi(argv[2]);
-    p->t_eat = ft_atoi(argv[3]);
-    p->t_sleep = ft_atoi(argv[4]);
-    p->n_eat = FT_INT_MAX;
+    data->num_philo = ft_atoi(argv[1]);
+    data->time_to_die = ft_atoi(argv[2]);
+    data->time_to_eat = ft_atoi(argv[3]);
+    data->time_to_sleep = ft_atoi(argv[4]);
     if (argc == 6)
-        p->n_eat = ft_atoi(argv[5]);
-    p->forks = malloc(sizeof(pthread_mutex_t) * p->n_philosophers);
-    if (!p->forks)
-    {
-        write(2, "Malloc Failed\n", 14);  
+        data->num_must_eat = ft_atoi(argv[5]);
+    else
+        data->num_must_eat = -1;
+    data->philosophers = malloc(data->num_philo * sizeof(t_philosopher));
+    if (!data->philosophers)
         return (0);
-    }
-    p->philosophers = malloc(sizeof(t_philosopher) * p->n_philosophers);
-    if (!p->philosophers)
-    {
-        write(2, "Malloc Failed\n", 14);
-        free(p->forks);
-        return (0);   
-    }
-    return (1);   
+    ft_print(data);
+    return (1);
 }
 
 int     ft_check_initialize(int argc, char *argv[], t_data *data)
@@ -80,9 +72,9 @@ int     ft_check_initialize(int argc, char *argv[], t_data *data)
     int     x;
 
     x = 1;
-    if ((argc > 4 && argc < 7) || argc < 5)
+    if (!(argc == 5 || argc == 6))
     {
-        write (2, "Invalid Arguments\n", 19);
+        write (2, "Invalid Arguments1\n", 19);
         return (1);
     }
     while (x < argc)
@@ -94,7 +86,7 @@ int     ft_check_initialize(int argc, char *argv[], t_data *data)
         }
         x++;
     }
-    if (!ft_initialize(data, argv, argc))
+    if(!ft_initialize(argc, argv, data))
         return (0);
     return (1);
 }
