@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:46:05 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/02/06 08:09:17 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/02/06 08:57:02 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int ft_init_threads(t_data *data)
 		data->philosophers[i].last_meal_time = 0;
 		data->philosophers[i].left_fork = i;  
 		data->philosophers[i].right_fork = (i + 1) % data->num_philo;
-		data->philosophers->data = data;
+		data->philosophers[i].data = data;
 		if (pthread_create(&data->philosophers[i].thread, NULL, philosopher_routine, &data->philosophers[i]) != 0)
 		{
 			write (2, "Thread Creation Failed\n", 23);
@@ -108,7 +108,7 @@ int  ft_initialize(int argc, char *argv[], t_data *data)
         ft_free(data);
         return (0);
     }
-	if (!ft_init_threads(data) || !ft_init_mutexes(data))
+	if (!ft_init_mutexes(data) || !ft_init_threads(data))
 		return (0);
     return (1);
 }

@@ -6,14 +6,14 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:37:06 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/02/06 08:20:30 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:07:34 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
+
 static void ft_sub_routine(t_philosopher *philo, t_data *data)
 {
-    // Debug: Check for valid fork indices
     if (philo->left_fork < 0 || philo->left_fork >= data->num_philo ||
         philo->right_fork < 0 || philo->right_fork >= data->num_philo)
     {
@@ -23,18 +23,16 @@ static void ft_sub_routine(t_philosopher *philo, t_data *data)
         pthread_mutex_unlock(&data->write_lock);
         return;
     }
-
     print_action(data, philo->id, "is thinking");
     pthread_mutex_lock(&data->forks[philo->left_fork]);
     print_action(data, philo->id, "has taken a fork");
     pthread_mutex_lock(&data->forks[philo->right_fork]);
     print_action(data, philo->id, "has taken a fork");
-
     pthread_mutex_lock(&data->stop_lock);
-    philo->last_meal_time = get_time();
+    philo->last_meal_time = get_time(data);
     pthread_mutex_unlock(&data->stop_lock);
-
     print_action(data, philo->id, "is eating");
+    philo->meals_eaten++;
     usleep(data->time_to_eat * 1000);
     pthread_mutex_unlock(&data->forks[philo->right_fork]);
     pthread_mutex_unlock(&data->forks[philo->left_fork]);
@@ -61,8 +59,7 @@ void *philosopher_routine(void *args)
     return NULL;
 }
 
-
-void monitor_philosophers(t_data *data)
+void    monitor_philosophers(t_data *data)
 {
     int i;
     
@@ -72,10 +69,10 @@ void monitor_philosophers(t_data *data)
         while (i < data->num_philo)
         {
             pthread_mutex_lock(&data->stop_lock);
-            if (get_time() - data->philosophers[i].last_meal_time > data->time_to_die)
+            if ((get_time(data) - data->philosophers[i].last_meal_time > data->time_to_die)||
+                data->philosophers[i].meals_eaten >= data->num_must_eat)
             {
                 data->simulation_over = 1;
-                // Lock write_lock for safe printing instead of unlocking an unlocked mutex.
                 pthread_mutex_lock(&data->write_lock);
                 printf("💀 Philosopher %d has died\n", data->philosophers[i].id);
                 pthread_mutex_unlock(&data->write_lock);

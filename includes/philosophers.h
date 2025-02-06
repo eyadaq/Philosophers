@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 08:01:24 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/02/06 08:16:47 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:02:29 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ int  	ft_initialize(int argc, char *argv[], t_data *data);
 void	*philosopher_routine(void *args);
 int     ft_atoi(char *str);
 void 	monitor_philosophers(t_data *data);
-long 	get_time(void);
-// void	ft_think(t_philosopher *philo, t_data *data);
-// void	ft_eat(t_philosopher *philo, t_data *data);
-// void	ft_sleep(t_philosopher *philo, t_data *data);
-void print_action(t_data *data, int id, char *action);
+long 	get_time(t_data *data);
+void 	print_action(t_data *data, int id, char *action);
+void	init_simulation_start_time(t_data *data);
 #endif
