@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:46:05 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/02/05 11:59:48 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/02/06 08:09:17 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,25 @@ void    ft_free(t_data *data)
 		free(data->philosophers);
 }
 
-static int ft_init_philos(t_data *data)
+static int ft_join_threads(t_data *data)
+{
+	int 	i;
+
+	i = 0;
+	while(i < data->num_philo)
+	{
+    	if (pthread_join(data->philosophers[i].thread, NULL) != 0)
+    	{
+        	printf("Error: Failed to join thread\n");
+			ft_free(data);
+        	return (0);
+		}
+		i++;
+    }
+	return (1);
+}
+
+static int ft_init_threads(t_data *data)
 {
 	int 	i;
 
@@ -41,10 +59,12 @@ static int ft_init_philos(t_data *data)
 		};
 		i++;
 	}
+	if (!ft_join_threads(data))
+		return (0);
 	return (1);
 }
 
-static int ft_init_forks(t_data *data)
+static int ft_init_mutexes(t_data *data)
 {
 	int		i;
 
@@ -59,6 +79,12 @@ static int ft_init_forks(t_data *data)
 		}
 		i++;		
 	}
+	if (pthread_mutex_init(&data->stop_lock, NULL) != 0 || pthread_mutex_init(&data->write_lock, NULL) != 0)
+	{
+		write(2, "Mutex Creation Failed\n", 22);
+		ft_free(data);
+		return (0);
+	}
 	return (1);
 }
 
@@ -68,6 +94,7 @@ int  ft_initialize(int argc, char *argv[], t_data *data)
     data->time_to_die = ft_atoi(argv[2]);
     data->time_to_eat = ft_atoi(argv[3]);
     data->time_to_sleep = ft_atoi(argv[4]);
+	data->simulation_over = 0;
     if (argc == 6)
         data->num_must_eat = ft_atoi(argv[5]);
     else
@@ -81,7 +108,7 @@ int  ft_initialize(int argc, char *argv[], t_data *data)
         ft_free(data);
         return (0);
     }
-	if (!ft_init_forks(data) || !ft_init_philos(data))
+	if (!ft_init_threads(data) || !ft_init_mutexes(data))
 		return (0);
     return (1);
 }

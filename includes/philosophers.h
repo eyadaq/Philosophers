@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 08:01:24 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/02/05 11:59:45 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/02/06 08:16:47 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct  s_data
 	int			simulation_over;
 	long 		start_time;
 	pthread_mutex_t *forks;
+	pthread_mutex_t stop_lock;
 	pthread_mutex_t write_lock;
 }			t_data;
 
@@ -50,6 +51,10 @@ void    ft_free(t_data *data);
 int  	ft_initialize(int argc, char *argv[], t_data *data);
 void	*philosopher_routine(void *args);
 int     ft_atoi(char *str);
-
-
+void 	monitor_philosophers(t_data *data);
+long 	get_time(void);
+// void	ft_think(t_philosopher *philo, t_data *data);
+// void	ft_eat(t_philosopher *philo, t_data *data);
+// void	ft_sleep(t_philosopher *philo, t_data *data);
+void print_action(t_data *data, int id, char *action);
 #endif

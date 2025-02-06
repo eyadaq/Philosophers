@@ -6,7 +6,7 @@
 #    By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 07:36:19 by eaqrabaw          #+#    #+#              #
-#    Updated: 2025/02/05 12:01:55 by eaqrabaw         ###   ########.fr        #
+#    Updated: 2025/02/06 07:59:51 by eaqrabaw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ CFLAGS = -Wall -Werror -Wextra
 SRCS = 	main \
 		handle_input\
 		initialization\
-		routine
+		routine\
+		routine_utils
 SRC_DIR = src/
 OBJ_DIR = obj/
 HEADER = includes/philosophers.h
@@ -44,14 +45,17 @@ $(OBJ_DIR):
 	@echo "$(GREEN)Creating OBJ_DIR$(RESET)"
 	@mkdir -p $(OBJ_DIR)
 	@echo "$(GREEN)Done $(ARROW)$(RESET)"
+
 clean:
 	@echo "$(RED)Deleting $(objDir)...$(RESET)"
 	@rm -rf $(OBJ_DIR)
 	@echo "$(RED)Done $(ARROW)$(RESET)"
+
 fclean: clean
 	@echo "$(RED)Deleting $(NAME)...$(RESET)"
 	@rm -f $(NAME)
 	@echo "$(RED)Done $(ARROW)$(RESET)"
+
 re: fclean all
 
 .PHONY: all clean fclean ree
