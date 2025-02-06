@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 07:57:45 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/02/06 09:27:28 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:44:30 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void print_action(t_data *data, int id, char *action)
 
     pthread_mutex_lock(&data->write_lock);
     timestamp = get_time(data);
+    data->philosophers[id - 1].last_meal_time = timestamp;
     if (!data->simulation_over)
         printf("%ld %d %s\n", timestamp, id, action);
     pthread_mutex_unlock(&data->write_lock);

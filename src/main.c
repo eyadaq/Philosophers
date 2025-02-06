@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 08:01:36 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/02/06 09:19:33 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:54:18 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	main(int argc, char *argv[])
     init_simulation_start_time(&data);
     if (!ft_initialize(argc, argv, &data))
         return (1);
-    monitor_philosophers(&data);
     ft_free(&data);
     return (0);
 }

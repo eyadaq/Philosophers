@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:37:06 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/02/06 09:29:16 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:56:43 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,26 @@ void *philosopher_routine(void *args)
     return NULL;
 }
 
-void    monitor_philosophers(t_data *data)
+
+void monitor_philosophers(t_data *data)
 {
     int i;
-    
+
     while (1)
     {
+        pthread_mutex_lock(&data->stop_lock);
+        if (data->simulation_over)
+        {
+            pthread_mutex_unlock(&data->stop_lock);
+            break;
+        }
+        pthread_mutex_unlock(&data->stop_lock);
         i = 0;
         while (i < data->num_philo)
         {
             pthread_mutex_lock(&data->stop_lock);
-            if ((get_time(data) - data->philosophers[i].last_meal_time > data->time_to_die)|| (data->philosophers[i].meals_eaten >= data->num_must_eat))
+            if ((get_time(data) - data->philosophers[i].last_meal_time > data->time_to_die) || 
+                (data->philosophers[i].meals_eaten >= data->num_must_eat))
             {
                 data->simulation_over = 1;
                 pthread_mutex_lock(&data->write_lock);
@@ -84,4 +93,5 @@ void    monitor_philosophers(t_data *data)
         usleep(1000);
     }
 }
+
 

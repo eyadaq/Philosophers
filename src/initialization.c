@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:46:05 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/02/06 09:20:04 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:54:36 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ static int ft_init_threads(t_data *data)
 		};
 		i++;
 	}
+	monitor_philosophers(data);
 	if (!ft_join_threads(data))
 		return (0);
 	return (1);
