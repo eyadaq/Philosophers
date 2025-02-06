@@ -6,13 +6,13 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 10:46:05 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/02/06 08:57:02 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:20:04 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-void    ft_free(t_data *data)
+void	ft_free(t_data *data)
 {
 	if (data->forks)
 		free(data->forks);
@@ -48,12 +48,12 @@ static int ft_init_threads(t_data *data)
 		data->philosophers[i].id = i + 1;
 		data->philosophers[i].meals_eaten = 0;
 		data->philosophers[i].last_meal_time = 0;
-		data->philosophers[i].left_fork = i;  
+		data->philosophers[i].left_fork = i;
 		data->philosophers[i].right_fork = (i + 1) % data->num_philo;
 		data->philosophers[i].data = data;
 		if (pthread_create(&data->philosophers[i].thread, NULL, philosopher_routine, &data->philosophers[i]) != 0)
 		{
-			write (2, "Thread Creation Failed\n", 23);
+			write(2, "Thread Creation Failed\n", 23);
 			ft_free(data);
 			return (0);
 		};
@@ -66,7 +66,7 @@ static int ft_init_threads(t_data *data)
 
 static int ft_init_mutexes(t_data *data)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (i < data->num_philo)
@@ -77,7 +77,7 @@ static int ft_init_mutexes(t_data *data)
 			ft_free(data);
 			return (0);
 		}
-		i++;		
+		i++;
 	}
 	if (pthread_mutex_init(&data->stop_lock, NULL) != 0 || pthread_mutex_init(&data->write_lock, NULL) != 0)
 	{
@@ -88,7 +88,7 @@ static int ft_init_mutexes(t_data *data)
 	return (1);
 }
 
-int  ft_initialize(int argc, char *argv[], t_data *data)
+int	ft_initialize(int argc, char *argv[], t_data *data)
 {
     data->num_philo = ft_atoi(argv[1]);
     data->time_to_die = ft_atoi(argv[2]);
@@ -110,5 +110,5 @@ int  ft_initialize(int argc, char *argv[], t_data *data)
     }
 	if (!ft_init_mutexes(data) || !ft_init_threads(data))
 		return (0);
-    return (1);
+	return (1);
 }
