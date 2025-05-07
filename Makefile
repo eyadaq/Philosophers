@@ -6,56 +6,54 @@
 #    By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 07:36:19 by eaqrabaw          #+#    #+#              #
-#    Updated: 2025/02/06 07:59:51 by eaqrabaw         ###   ########.fr        #
+#    Updated: 2025/05/07 08:53:44 by eaqrabaw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
-SRCS = 	main \
-		handle_input\
-		initialization\
-		routine\
-		routine_utils
-SRC_DIR = src/
-OBJ_DIR = obj/
-HEADER = includes/philosophers.h
+CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR)
+LDFLAGS = -lpthread
+SRC_DIR = src
+OBJ_DIR = obj
+INC_DIR = includes
+HEADER = philosophers.h
+SRCS 		= main
+INCLUDES = $(addprefix $(INC_DIR)/, $(HEADER))
+SOURCE = $(addprefix $(SRC_DIR)/, $(addsuffix .c, $(SRCS)))
+OBJECTS = $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(SRCS)))
 GREEN   	= \033[0;32m
 RED    		= \033[0;31m
 RESET   	= \033[0m
 ARROW   	= ✔
-FULL_SRC = $(addprefix $(SRC_DIR),$(addsuffix .c, $(SRCS)))
-OBJS = $(addprefix $(OBJ_DIR),$(addsuffix .o, $(SRCS)))
-LDFLAGS = -lpthread
+				
+all : $(NAME)
 
-all: $(NAME)
+$(NAME) : $(OBJECTS)
+	@echo "$(GREEN)Creating The Executable File...$(RESET)"
+	@$(CC) $(OBJECTS) -o $(NAME) $(LDFLAGS)
+	@echo "$(GREEN)Done...$(ARROW)$(RESET) "
 
-$(NAME): $(OBJS)
-	@echo "$(GREEN)Making $(NAME)...$(RESET)"
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LDFLAGS)
-	@echo "$(GREEN)Done $(ARROW)$(RESET)"
-	
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADER) | $(OBJ_DIR)
-	@echo "$(GREEN)Generating $@ $(RESET)"
-	@$(CC) $(CFLAGS) -c $< -o $@
-	@echo "$(GREEN)Done $(ARROW)$(RESET)"
+$(OBJ_DIR)/%.o : $(SRC_DIR)/%.c $(INCLUDES) | $(OBJ_DIR) 
+	@echo "$(GREEN)Creating The OBJ Files...$(RESET)"
+	@$(CC) $(CFLAGS) -c $< -o $@  
+	@echo "$(GREEN)Done..$(ARROW)$(RESET)"
 
-$(OBJ_DIR):
-	@echo "$(GREEN)Creating OBJ_DIR$(RESET)"
+$(OBJ_DIR) :
+	@echo "$(GREEN)Making the OBJ Directory $(RESET)"
 	@mkdir -p $(OBJ_DIR)
-	@echo "$(GREEN)Done $(ARROW)$(RESET)"
+	@echo "$(GREEN)Done..$(ARROW) $(RESET)"
 
-clean:
-	@echo "$(RED)Deleting $(objDir)...$(RESET)"
+clean :
+	@echo "$(RED)Cleaning the object files $(RESET)"
 	@rm -rf $(OBJ_DIR)
-	@echo "$(RED)Done $(ARROW)$(RESET)"
-
-fclean: clean
-	@echo "$(RED)Deleting $(NAME)...$(RESET)"
+	@echo "$(RED)Done...$(ARROW) $(RESET)"
+	
+fclean : clean
+	@echo "$(RED)Cleaning the executable $(RESET)"
 	@rm -f $(NAME)
-	@echo "$(RED)Done $(ARROW)$(RESET)"
+	@echo "$(RED)Done...$(ARROW) $(RESET)"
 
-re: fclean all
+re : fclean all
 
-.PHONY: all clean fclean ree
+.PHONY: all clean fclean re
