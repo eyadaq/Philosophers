@@ -1,30 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   input_validation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/07 06:51:52 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/07 20:05:01 by eaqrabaw         ###   ########.fr       */
+/*   Created: 2025/05/07 19:30:58 by eaqrabaw          #+#    #+#             */
+/*   Updated: 2025/05/07 20:00:38 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int		main(int argc, char **argv)
+int		ft_isdigit(int c)
 {
-	t_data	data;
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}
+
+int 	is_digit(char *str)
+{
+	skip_spaces(&str);
+	if (*str == '-' || *str == '+')
+		str++;
+	while (*str)
+	{
+		if (!ft_isdigit(*str))
+			return (0);
+		str++;
+	}
+	return (1);
+}
+
+int	input_validation(int argc, char **argv)
+{
+	int		i;
 	
-	if (!input_validation(argc, argv))
+	if (argc != 6 && argc != 5)
+		return (0);
+	i = 1;
+	while (i < argc)
 	{
-		write(2, "Invalid input\n", 15);
-		return (1);
+		if (!is_digit(argv[i]))
+			return (0);
+		i++;
 	}
-	if(!initiate_input(argc, argv, &data))
-	{
-		write(2, "Invalid input\n", 15);
-		return (1);
-	}
-	return (0);	
+	return (1);
 }

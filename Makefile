@@ -6,7 +6,7 @@
 #    By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 07:36:19 by eaqrabaw          #+#    #+#              #
-#    Updated: 2025/05/07 08:53:44 by eaqrabaw         ###   ########.fr        #
+#    Updated: 2025/05/07 19:58:23 by eaqrabaw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,10 @@ NAME = philo
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR)
 LDFLAGS = -lpthread
-SRC_DIR = src
+SRC_DIR = src \
+		  input_validation \
+		  initiate_input \
+		  
 OBJ_DIR = obj
 INC_DIR = includes
 HEADER = philosophers.h

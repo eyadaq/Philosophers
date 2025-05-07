@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 08:01:24 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/07 09:54:19 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/07 19:55:36 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ typedef struct s_data
 }			t_data;
 
 
+int					input_validation(int argc, char **argv);
+void 				skip_spaces(char **str);
 
 #endif
