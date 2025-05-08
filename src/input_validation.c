@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:30:58 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/07 20:00:38 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/08 06:40:08 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_isdigit(int c)
 	return (0);
 }
 
-int 	is_digit(char *str)
+int		is_digit(char *str)
 {
 	skip_spaces(&str);
 	if (*str == '-' || *str == '+')
@@ -33,7 +33,7 @@ int 	is_digit(char *str)
 	return (1);
 }
 
-int	input_validation(int argc, char **argv)
+int		input_validation(int argc, char **argv)
 {
 	int		i;
 	

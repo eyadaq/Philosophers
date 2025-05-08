@@ -6,20 +6,20 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:53:43 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/07 20:04:12 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/08 06:51:50 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void 	skip_spaces(char **str)
+void	skip_spaces(char **str)
 {
 	while (**str == ' ' || **str == '\t' || **str == '\n' 
 			|| **str == '\v' || **str == '\f' || **str == '\r')
 		(*str)++;
 }
 
-long		ft_atol(char *str)
+long	ft_atol(char *str)
 {
 	long	i;
 	int		sign;
@@ -53,8 +53,21 @@ int		initiate_input(int argc, char **argv, t_data *data)
 	if(data->t_t_sleep <= 0)
 		return (0);
 	if (argc == 6)
+	{
 		data->n_of_meals_eaten = ft_atol(argv[5]);
+		if (data->n_of_meals_eaten < 0)
+			return (0);
+	}
 	else 
 		data->n_of_meals_eaten = -1;
+	return (1);
+}
+
+int		check_initiate(t_data *data, int argc, char **argv)
+{
+	if (!input_validation(argc, argv))
+		return (0);
+	if (!initiate_input(argc, argv, data))
+		return (0);
 	return (1);
 }

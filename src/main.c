@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 06:51:52 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/07 20:05:01 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/08 06:51:35 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,10 @@
 
 int		main(int argc, char **argv)
 {
-	t_data	data;
+	t_data		data;
 	
-	if (!input_validation(argc, argv))
-	{
-		write(2, "Invalid input\n", 15);
+	if (!check_initiate(&data, argc, argv))
 		return (1);
-	}
-	if(!initiate_input(argc, argv, &data))
-	{
-		write(2, "Invalid input\n", 15);
-		return (1);
-	}
+	
 	return (0);	
 }
