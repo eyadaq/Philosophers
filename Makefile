@@ -6,7 +6,7 @@
 #    By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 07:36:19 by eaqrabaw          #+#    #+#              #
-#    Updated: 2025/05/08 09:48:02 by eaqrabaw         ###   ########.fr        #
+#    Updated: 2025/05/08 11:44:31 by eaqrabaw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,7 @@ NAME = philo
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR)
 LDFLAGS = -lpthread
-SRC_DIR = src \
-		  input_validation \
-		  initiate_input \
-		  
+SRC_DIR = src
 OBJ_DIR = obj
 INC_DIR = includes
 HEADER = philosophers.h
@@ -26,7 +23,8 @@ SRCS 		= main \
 		  	  initiate_input \
 		  	  input_validation \
 		  	  initiate_philos \
-			  utils
+			  free_utils \
+			  monitor
 INCLUDES = $(addprefix $(INC_DIR)/, $(HEADER))
 SOURCE = $(addprefix $(SRC_DIR)/, $(addsuffix .c, $(SRCS)))
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(SRCS)))

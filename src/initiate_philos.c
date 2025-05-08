@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 06:56:00 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/08 10:37:04 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:47:29 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int     init_philos(t_data *data, t_philo **philo)
     int     i;
 
     i = 0;
+    data->start_time = get_time();
     if (!init_mutexes(data))
         return (0);
     while (i < data->n_of_philos)

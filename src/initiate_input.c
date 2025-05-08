@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:53:43 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/08 07:31:15 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:38:20 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int		initiate_input(int argc, char **argv, t_data *data)
 		data->must_eat = -1;
 	data->all_ate_enough = 0;
 	data->start_time = 0;
+	data->stop_simulation = 0;
 	return (1);
 }
 
