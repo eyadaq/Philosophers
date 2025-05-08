@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:53:43 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/08 06:51:50 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/08 07:31:15 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,14 @@ int		initiate_input(int argc, char **argv, t_data *data)
 		return (0);
 	if (argc == 6)
 	{
-		data->n_of_meals_eaten = ft_atol(argv[5]);
-		if (data->n_of_meals_eaten < 0)
+		data->must_eat = ft_atol(argv[5]);
+		if (data->must_eat < 0)
 			return (0);
 	}
 	else 
-		data->n_of_meals_eaten = -1;
+		data->must_eat = -1;
+	data->all_ate_enough = 0;
+	data->start_time = 0;
 	return (1);
 }
 
