@@ -6,7 +6,7 @@
 #    By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 07:36:19 by eaqrabaw          #+#    #+#              #
-#    Updated: 2025/05/07 19:58:23 by eaqrabaw         ###   ########.fr        #
+#    Updated: 2025/05/08 09:48:02 by eaqrabaw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,12 @@ SRC_DIR = src \
 OBJ_DIR = obj
 INC_DIR = includes
 HEADER = philosophers.h
-SRCS 		= main
+SRCS 		= main \
+		  	  routine \
+		  	  initiate_input \
+		  	  input_validation \
+		  	  initiate_philos \
+			  utils
 INCLUDES = $(addprefix $(INC_DIR)/, $(HEADER))
 SOURCE = $(addprefix $(SRC_DIR)/, $(addsuffix .c, $(SRCS)))
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(SRCS)))
