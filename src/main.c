@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 06:51:52 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/10 00:42:07 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/10 01:48:31 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,34 @@ int	create_monitor_thread(t_data *data, t_philo **philos)
 	return (1);
 }
 
-int	run_simulation(t_data *data, t_philo **philos)
+int run_simulation(t_data *data, t_philo **philos)
 {
-	if (!init_mutexes(data))
-	{
-		free(data->forks);
-		free(philos);
-		return (0);
-	}
-	if (!init_philos(data, philos))
-	{
-		free(data->forks);
-		free(philos);
-		return (0);
-	}
-	if (!create_monitor_thread(data, philos))
-	{
-		cleanup_all(philos, data, data->n_of_philos);
-		return (0);
-	}
-	return (1);
+    if (!init_mutexes(data))
+    {
+        free(data->forks);
+        free(philos);
+        return (0);
+    }
+    
+    if (!init_philos(data, philos))
+    {
+        destroy_mutexes(data);
+        free(data->forks);
+        free(philos);
+        return (0);
+    }
+    if (!create_monitor_thread(data, philos))
+    {
+        pthread_mutex_lock(&data->simulation_lock);
+        data->stop_simulation = 1;
+        pthread_mutex_unlock(&data->simulation_lock);
+        cleanup_all(philos, data, data->n_of_philos);
+        return (0);
+    }
+    
+    return (1);
 }
+
 
 int	main(int argc, char **argv)
 {

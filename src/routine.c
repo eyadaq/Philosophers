@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 07:26:42 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/10 01:07:13 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/10 02:00:15 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_print(t_philo *philo, char *str)
 	}
 }
 
-void	ft_eat(t_philo *philo)
+void 	ft_take_forks(t_philo *philo)
 {
 	if (philo->id % 2 == 0 && should_continue(philo))
 	{
@@ -31,6 +31,7 @@ void	ft_eat(t_philo *philo)
 		ft_print(philo, "has taken a fork");
 		pthread_mutex_lock(philo->left_fork);
 		ft_print(philo, "has taken a fork");
+		return ;
 	}
 	else if (should_continue(philo))
 	{
@@ -38,14 +39,29 @@ void	ft_eat(t_philo *philo)
 		ft_print(philo, "has taken a fork");
 		pthread_mutex_lock(philo->right_fork);
 		ft_print(philo, "has taken a fork");
+		return ;
 	}
+}
+
+void	ft_eat(t_philo *philo)
+{
+	if (philo->data->n_of_philos == 1)
+    {
+		pthread_mutex_lock(philo->left_fork);
+        ft_print(philo, "has taken a fork");
+        usleep(philo->data->t_t_die * 1000);
+        pthread_mutex_unlock(philo->left_fork);
+        return;
+    }
+	ft_take_forks(philo);
 	if (should_continue(philo))
 	{
-		pthread_mutex_lock(&philo->data->simulation_lock);
-		philo->last_meal = get_time();
-		pthread_mutex_unlock(&philo->data->simulation_lock);
 		ft_print(philo, "is eating");
-		usleep(philo->data->t_t_eat * 1000);
+		pthread_mutex_lock(&philo->data->simulation_lock);
+        philo->last_meal = get_time();
+        pthread_mutex_unlock(&philo->data->simulation_lock);
+        usleep(philo->data->t_t_eat * 1000);
+        philo->n_of_meals_eaten++;
 	}
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
@@ -61,16 +77,6 @@ int	check_stop_simulation(t_philo *philo)
 	return (stop);
 }
 
-int	should_continue(t_philo *philo)
-{
-	if (check_stop_simulation(philo))
-		return (0);
-	if (philo->data->must_eat != -1
-		&& philo->n_of_meals_eaten >= philo->data->must_eat)
-		return (0);
-	return (1);
-}
-
 void	*routine(void *arg)
 {
 	t_philo	*philo;
@@ -79,7 +85,6 @@ void	*routine(void *arg)
 	while (should_continue(philo))
 	{
 		ft_eat(philo);
-		philo->n_of_meals_eaten++;
 		if (should_continue(philo))
 		{
 			ft_print(philo, "is sleeping");
@@ -88,7 +93,7 @@ void	*routine(void *arg)
 		if (should_continue(philo))
 		{
 			ft_print(philo, "is thinking");
-			usleep(100);
+			usleep(10);
 		}
 	}
 	return (NULL);

@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 08:01:24 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/09 22:49:24 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/10 01:48:56 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int		init_philos(t_data *data, t_philo **philo);
 void	free_threads(t_philo **philo, int count);
 void	destroy_forks(t_data *data, int count);
 void	cleanup_all(t_philo **philo, t_data *data, int created);
+void	destroy_mutexes(t_data *data);
 
 /* monitor.c */
 void	ft_stop(t_data *data);

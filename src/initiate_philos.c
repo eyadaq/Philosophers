@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 06:56:00 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/10 00:47:36 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/10 01:42:18 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,34 @@ int	join_threads(t_data *data, t_philo **philo)
 	return (1);
 }
 
-int	init_fork_mutexes(t_data *data)
+int 	init_fork_mutexes(t_data *data)
 {
-	int	i;
+    int		i;
 
-	i = 0;
-	while (i < data->n_of_philos)
-	{
-		data->forks[i] = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
+    i = 0;
+    while (i < data->n_of_philos)
+    {
+        if (pthread_mutex_init(&data->forks[i], NULL) != 0)
+        {
+			while (--i >= 0)
+				pthread_mutex_destroy(&data->forks[i]);
+			return (0);
+		}
 		i++;
 	}
 	return (1);
 }
 
-int	init_mutexes(t_data *data)
+int		init_mutexes(t_data *data)
 {
 	if (!init_fork_mutexes(data))
 		return (0);
-	data->print_lock = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
-	data->simulation_lock = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
+	if (pthread_mutex_init(&data->print_lock, NULL) != 0 || 
+		pthread_mutex_init(&data->simulation_lock, NULL) != 0)
+	{
+		destroy_mutexes(data);
+		return (0);
+	}
 	return (1);
 }
 
