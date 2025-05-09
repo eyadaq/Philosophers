@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 06:56:00 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/09 22:58:34 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/09 23:35:47 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	init_fork_mutexes(t_data *data)
 	i = 0;
 	while (i < data->n_of_philos)
 	{
-		if (!pthread_mutex_init(&data->forks[i], NULL) != 0)
+		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
 		{
 			write(2, "Mutex creation failed - Froks\n", 31);
 			destroy_forks(data, i);
@@ -113,7 +113,7 @@ int	create_philo_threads(t_data *data, t_philo **philo)
 	i = 0;
 	while (i < data->n_of_philos)
 	{
-		if (pthread_create(&philo[i]->thread, NULL, routine, philo) != 0)
+		if (pthread_create(&philo[i]->thread, NULL, routine, philo[i]) != 0)
 		{
 			write(2, "Thread creation failed - philo->thread\n", 40);
 			free_threads(philo, i);
