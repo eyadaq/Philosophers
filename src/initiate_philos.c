@@ -6,101 +6,138 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 06:56:00 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/09 05:37:29 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/09 22:58:34 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int     join_threads(t_data *data, t_philo **philo)
+int	join_threads(t_data *data, t_philo **philo)
 {
-    int     i;
+	int	i;
 
-    i = 0;
-    while (i < data->n_of_philos)
-    {
-        if (pthread_join(philo[i]->thread, NULL) != 0)
-        {
-            write(2, "Thread join failed\n", 19);
-            cleanup_all(philo, data, data->n_of_philos);
-            philo[i]->left_fork = NULL;
-            philo[i]->right_fork = NULL;
-            return (0);
-        }
-        i++;
-    }
-    if (pthread_join(data->monitor_thread, NULL) != 0)
-    {
-        write(2, "Thread join failed\n", 19);
-        cleanup_all(philo, data, data->n_of_philos);
-        return (0);
-    }
-    return (1);
+	i = 0;
+	while (i < data->n_of_philos)
+	{
+		if (pthread_join(philo[i]->thread, NULL) != 0)
+		{
+			write(2, "Thread join failed - Philo->Thread\n", 36);
+			philo[i]->left_fork = NULL;
+			philo[i]->right_fork = NULL;
+			return (0);
+		}
+		i++;
+	}
+	if (pthread_join(data->monitor_thread, NULL) != 0)
+	{
+		write(2, "Thread join failed - monitor thread\n", 37);
+		return (0);
+	}
+	return (1);
 }
 
-int     fill_philo(t_data *data, t_philo **philo, int philo_id)
+int	setup_philo(t_data *data, t_philo *philo, int philo_id)
 {
-    *philo = malloc(sizeof(t_philo));
-    if (!*philo)
-    {
-        destroy_forks(data, data->n_of_philos);
-        write(2, "Malloc failed for philosopher\n", 31);
-        return (0);
-    }
-    (*philo)->id = philo_id;
-    (*philo)->data = data;
-    (*philo)->n_of_meals_eaten = 0;
-    (*philo)->last_meal = data->start_time;
-    (*philo)->left_fork = &data->forks[philo_id];
-    (*philo)->right_fork = &data->forks[(philo_id + 1) % data->n_of_philos];
-    return (1);
+	philo->id = philo_id;
+	philo->data = data;
+	philo->n_of_meals_eaten = 0;
+	philo->last_meal = get_time();
+	philo->left_fork = &data->forks[philo_id];
+	philo->right_fork = &data->forks[(philo_id + 1) % data->n_of_philos];
+	return (1);
 }
 
-int     init_mutexes(t_data *data)
+int	fill_philo(t_data *data, t_philo **philo, int philo_id)
 {
-    int     i;
-
-    i = 0;
-    while (i < data->n_of_philos)
-    {
-        if (pthread_mutex_init(&data->forks[i], NULL))
-        {
-            destroy_forks(data, i);
-            write(2, "Mutex creation failed\n", 22);
-            return (0);
-        }
-        i++;
-    }
-    if (pthread_mutex_init(&data->simulation_lock, NULL) || pthread_mutex_init(&data->print_lock, NULL))
-    {
-        destroy_forks(data, i);
-        write(2, "Mutex creation failed\n", 22);
-        return (0);
-    }
-    return (1);
+	*philo = malloc(sizeof(t_philo));
+	if (!*philo)
+	{
+		write(2, "Malloc failed for philosopher\n", 31);
+		destroy_forks(data, data->n_of_philos);
+		return (0);
+	}
+	if (!setup_philo(data, *philo, philo_id))
+		return (0);
+	return (1);
 }
 
-int     init_philos(t_data *data, t_philo **philo)
+int	init_fork_mutexes(t_data *data)
 {
-    int     i;
+	int	i;
 
-    i = 0;
-    data->start_time = get_time();
-    while (i < data->n_of_philos)
-    {
-        if(!fill_philo(data, &philo[i], i))
-        {
-            free_threads(philo, i);
-            return (0);
-        }
-        if (pthread_create(&philo[i]->thread, NULL, routine, philo[i]))
-        {
-            write(2, "Thread creation failed\n", 24);
-            destroy_forks(data, i);
-            free_threads(philo, i + 1);
-            return (0);
-        }
-        i++;
-    }
-    return (1);
+	i = 0;
+	while (i < data->n_of_philos)
+	{
+		if (!pthread_mutex_init(&data->forks[i], NULL) != 0)
+		{
+			write(2, "Mutex creation failed - Froks\n", 31);
+			destroy_forks(data, i);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+int	init_control_mutexes(t_data *data)
+{
+	if (pthread_mutex_init(&data->print_lock, NULL) != 0)
+	{
+		write(2, "Mutex creation failed - print_lock\n", 36);
+		destroy_forks(data, data->n_of_philos);
+		return (0);
+	}
+	if (pthread_mutex_init(&data->simulation_lock, NULL) != 0)
+	{
+		write(2, "Mutex creation failed - simulation_lock\n", 41);
+		destroy_forks(data, data->n_of_philos);
+		pthread_mutex_destroy(&data->simulation_lock);
+		return (0);
+	}
+	return (1);
+}
+
+int	init_mutexes(t_data *data)
+{
+	if (!init_fork_mutexes(data))
+		return (0);
+	if (!init_control_mutexes(data))
+		return (0);
+	return (1);
+}
+
+int	create_philo_threads(t_data *data, t_philo **philo)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->n_of_philos)
+	{
+		if (pthread_create(&philo[i]->thread, NULL, routine, philo) != 0)
+		{
+			write(2, "Thread creation failed - philo->thread\n", 40);
+			free_threads(philo, i);
+			destroy_forks(data, data->n_of_philos);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+int	init_philos(t_data *data, t_philo **philo)
+{
+	int	i;
+
+	i = 0;
+	data->start_time = get_time();
+	while (i < data->n_of_philos)
+	{
+		if (!fill_philo(data, &philo[i], i))
+			return (0);
+		i++;
+	}
+	if (!create_philo_threads(data, philo))
+		return (0);
+	return (1);
 }
