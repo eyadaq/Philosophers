@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 08:01:24 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/09 05:01:39 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/09 05:40:21 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,5 @@ void    			destroy_forks(t_data *data, int count);
 void 				cleanup_all(t_philo **philo, t_data *data, int created);
 void 				*monitor(void *arg);
 long				get_time(void);
+int     			join_threads(t_data *data, t_philo **philo);
 #endif

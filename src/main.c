@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 06:51:52 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/09 05:39:19 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/09 05:39:50 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ int		main(int argc, char **argv)
 	}
 	if (!init_philos(&data, philos) || !init_mutexes(&data))
 		return (1);
-	ft_join_threads(&data, philos);
+	join_threads(&data, philos);
 	return (0);	
 }
