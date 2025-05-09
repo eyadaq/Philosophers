@@ -6,31 +6,46 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 07:26:42 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/08 11:49:54 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/09 05:39:08 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+int is_dead(t_philo *philo)
+{
+	return ((get_time() - philo->last_meal) > philo->data->t_t_die);
+}
+
+
 void    ft_print(t_philo *philo, char *str)
 {
     pthread_mutex_lock(&philo->data->print_lock);
-    printf("%ld %d %s\n", (long)(get_time() - philo->data->start_time), philo->id, str);
+    printf("%ld %d %s\n", (long)(get_time() - philo->data->start_time), philo->id + 1, str);
     pthread_mutex_unlock(&philo->data->print_lock);
 }
 
 void    ft_eat(t_philo *philo)
 {
-    pthread_mutex_lock(philo->left_fork);
-    ft_print(philo, "has taken left fork");
-    pthread_mutex_lock(philo->right_fork);
-    ft_print(philo, "has taken right fork");
+    if (philo->id % 2 == 0)
+    {
+        pthread_mutex_lock(philo->left_fork);
+        ft_print(philo, "has taken left fork");
+        pthread_mutex_lock(philo->right_fork);
+        ft_print(philo, "has taken right fork");
+    }
+    else
+    {
+        pthread_mutex_lock(philo->right_fork);
+        ft_print(philo, "has taken right fork");
+        pthread_mutex_lock(philo->left_fork);
+        ft_print(philo, "has taken left fork");
+    }
     philo->last_meal = get_time();
     ft_print(philo, "is eating");
     usleep(philo->data->t_t_eat * 1000);
     pthread_mutex_unlock(philo->left_fork);
     pthread_mutex_unlock(philo->right_fork);
-    
 }
 
 int is_dead(t_philo *philo)

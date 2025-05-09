@@ -6,11 +6,19 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:30:58 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/08 08:29:39 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/09 05:17:56 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+long	get_time(void)
+{
+	struct timeval	tv;
+	
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000L) + (tv.tv_usec / 1000));
+}
 
 int		ft_isdigit(int c)
 {
@@ -19,7 +27,7 @@ int		ft_isdigit(int c)
 	return (0);
 }
 
-int		is_digit(char *str)
+int		is_all_digit(char *str)
 {
 	skip_spaces(&str);
 	if (*str == '-' || *str == '+')
@@ -42,7 +50,7 @@ int		input_validation(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
-		if (!is_digit(argv[i]))
+		if (!is_all_digit(argv[i]))
 			return (0);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 08:01:24 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/08 11:47:09 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/09 05:01:39 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_data
 	pthread_mutex_t		simulation_lock;
 	pthread_mutex_t		*forks;
 	pthread_mutex_t		print_lock;
+	pthread_t			monitor_thread;
 }					t_data;
 
 typedef struct s_philo
@@ -54,7 +55,7 @@ void				free_threads(t_philo **philo, int count);
 int					init_philos(t_data *data, t_philo **philo);
 int     			init_mutexes(t_data *data);
 void    			free_threads(t_philo **philo, int count);
-void    			destroy_mutexes(t_data *data, int count);
+void    			destroy_forks(t_data *data, int count);
 void 				cleanup_all(t_philo **philo, t_data *data, int created);
 void 				*monitor(void *arg);
 long				get_time(void);
