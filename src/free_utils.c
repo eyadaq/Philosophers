@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 09:46:43 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/09 22:54:20 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/10 00:38:23 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,8 @@ void	free_threads(t_philo **philo, int count)
 	free(philo);
 }
 
-void	destroy_forks(t_data *data, int count)
-{
-	int	i;
-
-	i = 0;
-	while (i < count)
-	{
-		pthread_mutex_destroy(&data->forks[i]);
-		i++;
-	}
-}
-
 void	cleanup_all(t_philo **philo, t_data *data, int created)
 {
 	free_threads(philo, created);
-	destroy_forks(data, data->n_of_philos);
-	pthread_mutex_destroy(&data->simulation_lock);
-	pthread_mutex_destroy(&data->print_lock);
 	free(data->forks);
 }

@@ -14,8 +14,8 @@
 
 void	skip_spaces(char **str)
 {
-	while (**str == ' ' || **str == '\t' || **str == '\n'
-		|| **str == '\v' || **str == '\f' || **str == '\r')
+	while (**str == ' ' || **str == '\t' || **str == '\n' || **str == '\v'
+		|| **str == '\f' || **str == '\r')
 		(*str)++;
 }
 
@@ -59,10 +59,10 @@ int	init_data_values(t_data *data, int argc, char **argv)
 			return (0);
 	}
 	else
-	data->must_eat = -1;
+		data->must_eat = -1;
 	data->all_ate_enough = 0;
 	data->start_time = 0;
-	data->stop_simulation = 0;	
+	data->stop_simulation = 0;
 	return (1);
 }
 

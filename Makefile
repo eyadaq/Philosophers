@@ -6,13 +6,13 @@
 #    By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 07:36:19 by eaqrabaw          #+#    #+#              #
-#    Updated: 2025/05/08 11:44:31 by eaqrabaw         ###   ########.fr        #
+#    Updated: 2025/05/10 00:56:47 by eaqrabaw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR)
+CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR) -g
 LDFLAGS = -lpthread
 SRC_DIR = src
 OBJ_DIR = obj
@@ -24,7 +24,8 @@ SRCS 		= main \
 		  	  input_validation \
 		  	  initiate_philos \
 			  free_utils \
-			  monitor
+			  monitor \
+			  utils
 INCLUDES = $(addprefix $(INC_DIR)/, $(HEADER))
 SOURCE = $(addprefix $(SRC_DIR)/, $(addsuffix .c, $(SRCS)))
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(SRCS)))
