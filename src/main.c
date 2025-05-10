@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 06:51:52 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/10 01:48:31 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/10 02:25:23 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int run_simulation(t_data *data, t_philo **philos)
     
     return (1);
 }
-
 
 int	main(int argc, char **argv)
 {

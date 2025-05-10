@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:53:43 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/09 22:29:10 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/10 03:03:14 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	skip_spaces(char **str)
 		(*str)++;
 }
 
-long	ft_atol(char *str)
+static long		ft_atol(char *str)
 {
 	long	i;
 	int		sign;
@@ -38,7 +38,7 @@ long	ft_atol(char *str)
 	return (i * sign);
 }
 
-int	init_data_values(t_data *data, int argc, char **argv)
+static int	init_data_values(t_data *data, int argc, char **argv)
 {
 	data->n_of_philos = ft_atol(argv[1]);
 	if (data->n_of_philos <= 0)

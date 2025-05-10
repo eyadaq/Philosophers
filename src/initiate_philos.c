@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 06:56:00 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/10 01:42:18 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/10 03:04:11 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		init_mutexes(t_data *data)
 	return (1);
 }
 
-int	create_philo_threads(t_data *data, t_philo **philo)
+static int	create_philo_threads(t_data *data, t_philo **philo)
 {
 	int	i;
 

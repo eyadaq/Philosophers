@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 19:30:58 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/09 22:20:28 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/10 03:02:35 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ long	get_time(void)
 	return ((tv.tv_sec * 1000L) + (tv.tv_usec / 1000));
 }
 
-int	is_all_digit(char *str)
+static int	is_all_digit(char *str)
 {
 	skip_spaces(&str);
 	if (*str == '-' || *str == '+')
@@ -34,7 +34,7 @@ int	is_all_digit(char *str)
 	return (1);
 }
 
-int	check_arg_digits(int argc, char **argv)
+static int	check_arg_digits(int argc, char **argv)
 {
 	int	i;
 
