@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 06:56:00 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/10 04:15:32 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/10 18:10:49 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	create_philo_threads(t_data *data, t_philo **philo)
 	int	i;
 
 	i = 0;
-	while (i ==2 ||  i < data->n_of_philos)
+	while (i < data->n_of_philos)
 	{
 		if (pthread_create(&philo[i]->thread, NULL, routine, philo[i]) != 0)
 		{

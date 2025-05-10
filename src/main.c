@@ -80,8 +80,8 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 	t_philo	**philos;
-	int i;
-	
+	int		i;
+
 	i = 0;
 	if (!check_initiate(&data, argc, argv))
 		return (1);

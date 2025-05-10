@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 00:46:30 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/10 03:47:55 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/10 18:17:46 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,13 @@ void	ft_stop(t_data *data)
 
 int	should_continue(t_philo *philo)
 {
-	if (check_stop_simulation(philo))
+	pthread_mutex_lock(&philo->data->simulation_lock);
+	if (philo->data->stop_simulation || (philo->data->must_eat != -1
+			&& philo->n_of_meals_eaten >= philo->data->must_eat))
+	{
+		pthread_mutex_unlock(&philo->data->simulation_lock);
 		return (0);
-	if (philo->data->must_eat != -1
-		&& philo->n_of_meals_eaten >= philo->data->must_eat)
-		return (0);
+	}
+	pthread_mutex_unlock(&philo->data->simulation_lock);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 11:17:27 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/10 03:53:23 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/10 18:23:22 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,27 +43,28 @@ int	monitor_philos(t_philo **philos, t_data *data)
 	current_time = get_time();
 	while (i < data->n_of_philos)
 	{
+		pthread_mutex_lock(&data->print_lock);
 		pthread_mutex_lock(&data->simulation_lock);
 		time_since_meal = current_time - philos[i]->last_meal;
 		if (time_since_meal >= data->t_t_die)
 		{
 			data->stop_simulation = 1;
-			pthread_mutex_unlock(&data->simulation_lock);
-			pthread_mutex_lock(&data->print_lock);
 			printf("%6.0ld %3.0d has died\n", current_time - data->start_time,
 				philos[i]->id + 1);
+			pthread_mutex_unlock(&data->simulation_lock);
 			pthread_mutex_unlock(&data->print_lock);
 			return (1);
 		}
 		pthread_mutex_unlock(&data->simulation_lock);
+		pthread_mutex_unlock(&data->print_lock);
 		i++;
 	}
 	return (0);
 }
 
-int     ft_monitor_helper(t_data *data, t_philo **philos, int sleep_time)
+int	ft_monitor_helper(t_data *data, t_philo **philos, int sleep_time)
 {
-    pthread_mutex_lock(&data->simulation_lock);
+	pthread_mutex_lock(&data->simulation_lock);
 	if (data->stop_simulation)
 	{
 		pthread_mutex_unlock(&data->simulation_lock);
@@ -71,14 +72,14 @@ int     ft_monitor_helper(t_data *data, t_philo **philos, int sleep_time)
 	}
 	pthread_mutex_unlock(&data->simulation_lock);
 	if (monitor_philos(philos, data))
-        return (0);
+		return (0);
 	if (check_all_ate_enough(philos, data))
 	{
 		ft_stop(data);
 		return (0);
 	}
 	usleep(sleep_time);
-    return (1);
+	return (1);
 }
 
 void	*monitor(void *arg)
@@ -86,9 +87,9 @@ void	*monitor(void *arg)
 	t_philo	**philos;
 	t_data	*data;
 	int		sleep_time;
-    int     flag;
+	int		flag;
 
-    flag = 1;
+	flag = 1;
 	philos = (t_philo **)arg;
 	data = philos[0]->data;
 	if (data->t_t_die < 10)
