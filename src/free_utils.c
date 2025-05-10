@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 09:46:43 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/10 02:59:32 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/10 04:07:15 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,15 @@ void	free_threads(t_philo **philo, int count)
 	i = 0;
 	while (i < count)
 	{
-		pthread_join(philo[i]->thread, NULL);
-		free(philo[i]);
+		pthread_detach(philo[i]->thread);
 		i++;
 	}
-	free(philo);
 }
 
 void	destroy_mutexes(t_data *data)
 {
-	int		i;
-    
+	int	i;
+
 	i = 0;
 	while (i < data->n_of_philos)
 	{
@@ -42,9 +40,17 @@ void	destroy_mutexes(t_data *data)
 
 void	cleanup_all(t_philo **philo, t_data *data, int created)
 {
-	free_threads(philo, created);
+	int	i;
+
+	i = 0;
+	//free_threads(philo, created);
 	destroy_mutexes(data);
-	free(data->forks);
+	while (i < created)
+	{
+		philo[i]->left_fork = NULL;
+		philo[i]->right_fork = NULL;
+		i++;
+	}
 }
 
 void	ft_print(t_philo *philo, char *str)

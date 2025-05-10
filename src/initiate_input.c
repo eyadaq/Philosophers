@@ -19,7 +19,7 @@ void	skip_spaces(char **str)
 		(*str)++;
 }
 
-static long		ft_atol(char *str)
+static long	ft_atol(char *str)
 {
 	long	i;
 	int		sign;

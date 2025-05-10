@@ -6,11 +6,21 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 06:51:52 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/10 02:25:23 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/10 04:14:54 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+int	check_stop_simulation(t_philo *philo)
+{
+	int	stop;
+
+	pthread_mutex_lock(&philo->data->simulation_lock);
+	stop = philo->data->stop_simulation;
+	pthread_mutex_unlock(&philo->data->simulation_lock);
+	return (stop);
+}
 
 int	allocate_memory(t_data *data, t_philo ***philos)
 {
@@ -40,39 +50,39 @@ int	create_monitor_thread(t_data *data, t_philo **philos)
 	return (1);
 }
 
-int run_simulation(t_data *data, t_philo **philos)
+int	run_simulation(t_data *data, t_philo **philos)
 {
-    if (!init_mutexes(data))
-    {
-        free(data->forks);
-        free(philos);
-        return (0);
-    }
-    
-    if (!init_philos(data, philos))
-    {
-        destroy_mutexes(data);
-        free(data->forks);
-        free(philos);
-        return (0);
-    }
-    if (!create_monitor_thread(data, philos))
-    {
-        pthread_mutex_lock(&data->simulation_lock);
-        data->stop_simulation = 1;
-        pthread_mutex_unlock(&data->simulation_lock);
-        cleanup_all(philos, data, data->n_of_philos);
-        return (0);
-    }
-    
-    return (1);
+	if (!init_mutexes(data))
+	{
+		free(data->forks);
+		free(philos);
+		return (0);
+	}
+	if (!init_philos(data, philos))
+	{
+		destroy_mutexes(data);
+		free(data->forks);
+		free(philos);
+		return (0);
+	}
+	if (!create_monitor_thread(data, philos))
+	{
+		pthread_mutex_lock(&data->simulation_lock);
+		data->stop_simulation = 1;
+		pthread_mutex_unlock(&data->simulation_lock);
+		cleanup_all(philos, data, data->n_of_philos);
+		return (0);
+	}
+	return (1);
 }
 
 int	main(int argc, char **argv)
 {
 	t_data	data;
 	t_philo	**philos;
-
+	int i;
+	
+	i = 0;
 	if (!check_initiate(&data, argc, argv))
 		return (1);
 	if (!allocate_memory(&data, &philos))
@@ -80,6 +90,13 @@ int	main(int argc, char **argv)
 	if (!run_simulation(&data, philos))
 		return (1);
 	join_threads(&data, philos);
+	ft_stop(&data);
+	while (i < data.n_of_philos)
+	{
+		free(philos[i]);
+		i++;
+	}
 	free(data.forks);
+	free(philos);
 	return (0);
 }

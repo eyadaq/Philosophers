@@ -6,7 +6,7 @@
 #    By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/21 07:36:19 by eaqrabaw          #+#    #+#              #
-#    Updated: 2025/05/10 00:56:47 by eaqrabaw         ###   ########.fr        #
+#    Updated: 2025/05/10 03:13:39 by eaqrabaw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ SRCS 		= main \
 		  	  initiate_philos \
 			  free_utils \
 			  monitor \
-			  utils
+			  utils \
+			  eat
 INCLUDES = $(addprefix $(INC_DIR)/, $(HEADER))
 SOURCE = $(addprefix $(SRC_DIR)/, $(addsuffix .c, $(SRCS)))
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(addsuffix .o, $(SRCS)))

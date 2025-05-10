@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 06:56:00 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/10 03:04:11 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/10 04:15:32 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ int	join_threads(t_data *data, t_philo **philo)
 	return (1);
 }
 
-int 	init_fork_mutexes(t_data *data)
+int	init_fork_mutexes(t_data *data)
 {
-    int		i;
+	int	i;
 
-    i = 0;
-    while (i < data->n_of_philos)
-    {
-        if (pthread_mutex_init(&data->forks[i], NULL) != 0)
-        {
+	i = 0;
+	while (i < data->n_of_philos)
+	{
+		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
+		{
 			while (--i >= 0)
 				pthread_mutex_destroy(&data->forks[i]);
 			return (0);
@@ -54,12 +54,12 @@ int 	init_fork_mutexes(t_data *data)
 	return (1);
 }
 
-int		init_mutexes(t_data *data)
+int	init_mutexes(t_data *data)
 {
 	if (!init_fork_mutexes(data))
 		return (0);
-	if (pthread_mutex_init(&data->print_lock, NULL) != 0 || 
-		pthread_mutex_init(&data->simulation_lock, NULL) != 0)
+	if (pthread_mutex_init(&data->print_lock, NULL) != 0
+		|| pthread_mutex_init(&data->simulation_lock, NULL) != 0)
 	{
 		destroy_mutexes(data);
 		return (0);
@@ -72,7 +72,7 @@ static int	create_philo_threads(t_data *data, t_philo **philo)
 	int	i;
 
 	i = 0;
-	while (i < data->n_of_philos)
+	while (i ==2 ||  i < data->n_of_philos)
 	{
 		if (pthread_create(&philo[i]->thread, NULL, routine, philo[i]) != 0)
 		{
