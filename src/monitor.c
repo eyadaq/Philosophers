@@ -6,34 +6,35 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 11:17:27 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/11 07:31:09 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/12 18:11:24 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static int check_all_ate_enough(t_philo **philos, t_data *data)
+static int	check_all_ate_enough(t_philo **philos, t_data *data)
 {
-    int i;
-    int all_ate = 1;
+	int		i;
+	int		all_ate;
+	int		meals;
 
-    if (data->must_eat == -1)
-        return 0;
-    i = 0;
-    while (i < data->n_of_philos)
-    {
-        int meals;
-        pthread_mutex_lock(&(data->simulation_lock));
-        meals = philos[i]->n_of_meals_eaten;
-        pthread_mutex_unlock(&(data->simulation_lock));
-        if (meals < data->must_eat)
-        {
-            all_ate = 0;
-            break;
-        }
-        i++;
-    }
-    return (all_ate);
+	all_ate = 1;
+	if (data->must_eat == -1)
+		return (0);
+	i = 0;
+	while (i < data->n_of_philos)
+	{
+		pthread_mutex_lock(&(data->simulation_lock));
+		meals = philos[i]->n_of_meals_eaten;
+		pthread_mutex_unlock(&(data->simulation_lock));
+		if (meals < data->must_eat)
+		{
+			all_ate = 0;
+			break ;
+		}
+		i++;
+	}
+	return (all_ate);
 }
 
 int	monitor_philos(t_philo **philos, t_data *data)

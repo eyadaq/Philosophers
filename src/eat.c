@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 03:12:07 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2025/05/11 07:28:28 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2025/05/12 18:10:28 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,11 @@ static int	ft_eat_helper(t_philo *philo)
 	start_eating_time = get_time();
 	while (flag)
 		flag = ft_eat_process(philo, &died_while_eating, start_eating_time);
-	if (should_continue(philo) && !died_while_eating) {
-    	pthread_mutex_lock(&philo->data->simulation_lock);
-   	 	philo->n_of_meals_eaten++;
-    	pthread_mutex_unlock(&philo->data->simulation_lock);
+	if (should_continue(philo) && !died_while_eating)
+	{
+		pthread_mutex_lock(&philo->data->simulation_lock);
+		philo->n_of_meals_eaten++;
+		pthread_mutex_unlock(&philo->data->simulation_lock);
 	}
 	return (died_while_eating);
 }
