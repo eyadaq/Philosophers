@@ -115,3 +115,4 @@ This runs the simulation with 5 philosophers, each dying if they don't eat for 8
 * man pages: `pthread_create`, `pthread_join`, `pthread_mutex_init`, `pthread_mutex_lock`, `usleep`, `gettimeofday`
 
 ---
+🛠 Developed as part of the 42 Network's core curriculum
